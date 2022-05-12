@@ -4,19 +4,19 @@ Overview Spring Batch - https://giuliana-bezerra.medium.com/spring-batch-para-de
 
 
 
-# Sistem Batch  
+## Sistema Batch  
 Um sistema que realiza um processamento de uma quantidade finita de dados sem interação ou interrupção.  
 
-# Spring Batch  
+## Spring Batch  
 Framework para desenvolvimento de sistemas batch usando o spring com java.  
 
 A estrutura básice de um projeto spring batch consiste em Job > Step > Reader > Processor > Writer  
 Todos os componentes são criados com builders que já são inclusos no spring batch, como por exemplo o JobBuilderFactory.  
 
-# Job  
+## Job  
 Informa qual o serviço a ser executado no processo.  
 
-# Step  
+## Step  
 Podem ser simples ou complexas, podem ser encadeadas em vários steps sequencias, são informados no job.  
 Para tarefas simples usamos tesklets.  
 
