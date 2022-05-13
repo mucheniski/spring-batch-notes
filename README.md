@@ -26,3 +26,37 @@ A classe precisa conter as anotaçoes @Configuration para indicar que é uma cla
 
 Steps mais complexos são basedos em chunks(pedaços), nesse caso possuem reader, processor e writer.  
 
+## Job Repository  
+É o repositório onde ficam armazenados os metadados do spring batch, que são as informações sobre execução dos jobs, steps, etc...
+O spring batch cria as tabelas automáticamente na base configurada usando a propriedade no application.properties  
+~~~
+    spring.batch.initialize-schema=always
+~~~  
+As tabelas criadas podem responder algumas perguntas como:  
+BATCH_JOB_INSTANCE - Quantas vezes o batch executou com sucesso, execuções lógicas.  
+BATCH_JOB_EXECUTION - Quantas vezes o batch executou ao todo, por completo, incluindo execuções com falhas.  
+BATCH_JOB_EXECUTION_CONTEXT - Mostra informações importantes para o contexto de execução do job, qualquer informação adicional importante para sabermos sobre a execução, como por exemplo informações de negócio.  
+BATCH_JOB_EXECUTION_PARAMS - Informa para cada execução, qual parâmetro foi utilizado. Observar as colunas KEY_NAME e LONG_VAL.  
+
+BATCH_STEP_EXECUTION - Quais steps foram executados, o JOB_EXECUTION_ID vincula o step ao JOB.  
+BATCH_STEP_EXECUTION_CONTEXT - Podem ser adicionadas informações específicas no step para entender melhor o funcionamento dele, como mapa de dados chave valor.  
+
+
+## Execução do JOB  
+Cada JOB deve ser executado apenas uma vez, caso tente executar o mesmo JOB com os mesmos parâmetros mais de uma vez, o EXIT_CODE em BATCH_JOB_EXECUTION vai ficar como NOOP, e não será executado o JOB, para prevenir isso é preciso adicionar um incrementer logo após o start, assim vai ser criado um novo id a cada JOB, permitindo que seja executado porque o parâmetro id é diferente a cada execução.  
+Porém deve ser observado que esse incrementer impede a reinicialização do JOB, no caso de algum erro, o JOB é reiniciado, por isso não é sempre indicado o incrementador, depende da necessidade de negócio.  
+![](/img/Incrementer.png)  
+
+## Tipos de Steps  
+Existem dois tipos, tasklets ou chunk, tasklets são usadas para pequenas tarefas, mais simples como limpeza de arquivos por exemplo.  
+Chunks são utilizados para processamentos mais complexos, que precisam ser executados em pedaços.  
+Esses pedaços são divididos em tarefas de Leitura(ItemReader), Processamento(ItemProcessor) e escrita(ItemWriter).  
+Cada chunk possui a sua própria transação.  
+Exemplo de fluxo do chunk.  
+![](/img/FluxoChunk.png)  
+
+O Reader le os dados em coleção.  
+O Processor processa cada dado dessa coleção, um item de cada vez.  
+O Writer escreve essa coleção completa processada.  
+
+
