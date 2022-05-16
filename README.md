@@ -13,6 +13,10 @@ Framework para desenvolvimento de sistemas batch usando o spring com java.
 A estrutura básice de um projeto spring batch consiste em Job > Step > Reader > Processor > Writer  
 Todos os componentes são criados com builders que já são inclusos no spring batch, como por exemplo o JobBuilderFactory.  
 
+## Modelo de execução de um processo spring batch  
+![](/img/modeloExecucaoSpringBatch.png)  
+
+
 ## Job  
 Informa qual o serviço a ser executado no processo.  
 
@@ -38,7 +42,7 @@ BATCH_JOB_EXECUTION - Quantas vezes o batch executou ao todo, por completo, incl
 BATCH_JOB_EXECUTION_CONTEXT - Mostra informações importantes para o contexto de execução do job, qualquer informação adicional importante para sabermos sobre a execução, como por exemplo informações de negócio.  
 BATCH_JOB_EXECUTION_PARAMS - Informa para cada execução, qual parâmetro foi utilizado. Observar as colunas KEY_NAME e LONG_VAL.  
 
-BATCH_STEP_EXECUTION - Quais steps foram executados, o JOB_EXECUTION_ID vincula o step ao JOB.  
+BATCH_STEP_EXECUTION - Quais steps foram executados, o JOB_EXECUTION_ID vincula o step ao JOB. Também tem a coluna COMMIT_COUNT que mostra a contagem de quantas transacoes foram efetuadas no step.  
 BATCH_STEP_EXECUTION_CONTEXT - Podem ser adicionadas informações específicas no step para entender melhor o funcionamento dele, como mapa de dados chave valor.  
 
 
@@ -46,6 +50,8 @@ BATCH_STEP_EXECUTION_CONTEXT - Podem ser adicionadas informações específicas 
 Cada JOB deve ser executado apenas uma vez, caso tente executar o mesmo JOB com os mesmos parâmetros mais de uma vez, o EXIT_CODE em BATCH_JOB_EXECUTION vai ficar como NOOP, e não será executado o JOB, para prevenir isso é preciso adicionar um incrementer logo após o start, assim vai ser criado um novo id a cada JOB, permitindo que seja executado porque o parâmetro id é diferente a cada execução.  
 Porém deve ser observado que esse incrementer impede a reinicialização do JOB, no caso de algum erro, o JOB é reiniciado, por isso não é sempre indicado o incrementador, depende da necessidade de negócio.  
 ![](/img/Incrementer.png)  
+
+O Projeto pode possuir mais de um job.
 
 ## Tipos de Steps  
 Existem dois tipos, tasklets ou chunk, tasklets são usadas para pequenas tarefas, mais simples como limpeza de arquivos por exemplo.  
