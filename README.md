@@ -43,7 +43,7 @@ BATCH_JOB_EXECUTION_CONTEXT - Mostra informações importantes para o contexto d
 BATCH_JOB_EXECUTION_PARAMS - Informa para cada execução, qual parâmetro foi utilizado. Observar as colunas KEY_NAME e LONG_VAL.  
 
 BATCH_STEP_EXECUTION - Quais steps foram executados, o JOB_EXECUTION_ID vincula o step ao JOB. Também tem a coluna COMMIT_COUNT que mostra a contagem de quantas transacoes foram efetuadas no step.  
-BATCH_STEP_EXECUTION_CONTEXT - Podem ser adicionadas informações específicas no step para entender melhor o funcionamento dele, como mapa de dados chave valor.  
+BATCH_STEP_EXECUTION_CONTEXT - Podem ser adicionadas informações específicas no step para entender melhor o funcionamento dele, como mapa de dados chave valor. na coluna SHORT_CONTEXT por exemplo, existe uma propriedade read.count que é um ponteiro que mostra quantos registros foram lidos e commitados nesse step. Isso serve para que caso aconteca algum erro, o job possa ser reinicializado a partir dali.
 
 
 ## Execução do JOB  
@@ -51,7 +51,13 @@ Cada JOB deve ser executado apenas uma vez, caso tente executar o mesmo JOB com 
 Porém deve ser observado que esse incrementer impede a reinicialização do JOB, no caso de algum erro, o JOB é reiniciado, por isso não é sempre indicado o incrementador, depende da necessidade de negócio.  
 ![](/img/Incrementer.png)  
 
-O Projeto pode possuir mais de um job.
+O Projeto pode possuir mais de um job.  
+
+## Reinicializacao do JOB  
+Caso aconteça algum erro, o JOB precisa ser reinicializado, caso possua incrementer no job, não vai ser possivel executar novamente.  
+Relembrando:  BATCH_STEP_EXECUTION_CONTEXT - Podem ser adicionadas informações específicas no step para entender melhor o funcionamento dele, como mapa de dados chave valor. na coluna SHORT_CONTEXT por exemplo, existe uma propriedade read.count que é um ponteiro que mostra quantos chunks foram lidos e commitados nesse step. Isso serve para que caso aconteca algum erro, o job possa ser reinicializado a partir dali. Lembrando que o uso do incrementer pode interferir na reinicialização do mesmo job, porque ele faz com que um novo id de execução seja criado. É preciso avalidar a necessidade do negócio em relação ao incrementer. O read.count considera o chunk, é reestartado à partir da quantidade de chunk definida no step.  
+Se a falha ocorrer no meio do chunk, não é possível recuperar do erro.  
+
 
 ## Tipos de Steps  
 Existem dois tipos, tasklets ou chunk, tasklets são usadas para pequenas tarefas, mais simples como limpeza de arquivos por exemplo.  
@@ -65,4 +71,7 @@ O Reader le os dados em coleção.
 O Processor processa cada dado dessa coleção, um item de cada vez.  
 O Writer escreve essa coleção completa processada.  
 
+
+# Readers  
+Le os dados baseado no tamanho definido no chunk, e devolve um a um para o processamento (Processor).  
 
