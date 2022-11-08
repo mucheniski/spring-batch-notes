@@ -34,7 +34,7 @@ Steps mais complexos são basedos em chunks(pedaços), nesse caso possuem reader
 É o repositório onde ficam armazenados os metadados do spring batch, que são as informações sobre execução dos jobs, steps, etc...
 O spring batch cria as tabelas automáticamente na base configurada usando a propriedade no application.properties  
 ~~~
-    spring.batch.initialize-schema=always
+    spring.batch.jdbc.initialize-schema = ALWAYS
 ~~~  
 As tabelas criadas podem responder algumas perguntas como:  
 BATCH_JOB_INSTANCE - Quantas vezes o batch executou com sucesso, execuções lógicas.  
