@@ -74,6 +74,8 @@ O Writer escreve essa coleção completa processada.
 
 # Readers  
 Le os dados baseado no tamanho definido no chunk, e devolve um a um para o processamento (Processor).  
+Leitores de XML  https://docs.spring.io/spring-batch/docs/current/reference/html/index-single.html#StaxEventItemReader  
+Leitores de JSON  https://docs.spring.io/spring-batch/docs/current/reference/html/index-single.html#JsonItemReader  
 
 # Writers
 Escreve os registros em banco de dados ou em arquivo.  
