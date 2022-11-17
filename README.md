@@ -87,13 +87,31 @@ Leitores por paginação leem apenas uma pagina por vez, com o seu tamanho limit
 ![](/img/LeitorJDBCPaginacaopng.png)  
 
 
-Os leitores por Curosoress são mais rápidos, porém ocupam mais memória da máquina, os leitores por Paginação por sua vez são mais lentos mais ocupam menos memória.  
+Os leitores por Curosores são mais rápidos, porém ocupam mais memória da máquina, os leitores por Paginação por sua vez são mais lentos mais ocupam menos memória.  
 ![](/img/tiposLeitoresJDBC.png)  
+
+
+O projeto que trata a exception em leitura é o SkipExceptionJob  
 
 
 Outros tipos de leitores do spring batch  
 Leitores de XML  https://docs.spring.io/spring-batch/docs/current/reference/html/index-single.html#StaxEventItemReader  
+
 Leitores de JSON  https://docs.spring.io/spring-batch/docs/current/reference/html/index-single.html#JsonItemReader  
+
+Para se aprofundar...  
+Para reforçar o aprendizado a respeito da leitura em banco de dados com Spring Batch, sugiro o seguinte artigo para leitura:  
+
+https://docs.spring.io/spring-batch/docs/current/reference/html/readersAndWriters.html#database  
+
+Você também pode customizar um leitor. O exemplo abaixo mostra como criar um leitor que acessa um serviço REST para carregar dados:  
+
+https://www.petrikainulainen.net/programming/spring-framework/spring-batch-tutorial-reading-information-from-a-rest-api/  
+
+E se você quiser trabalhar com uma infraestrutura de filas assíncronas, também dá usar um componente específico do Spring Batch:  
+
+https://github.com/spring-tips/kafka-and-spring-batch/blob/master/src/main/java/com/example/bk/consumer/ConsumerApplication.java  
+
 
 # Writers
 Escreve os registros em banco de dados ou em arquivo.  
