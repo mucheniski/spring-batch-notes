@@ -1,6 +1,7 @@
 # spring-batch-notes
 Documentação spring batch - https://docs.spring.io/spring-batch/docs/current/reference/html/index.html  
 Overview Spring Batch - https://giuliana-bezerra.medium.com/spring-batch-para-desenvolvimento-de-jobs-1674ec5b9a20  
+Curso Udemy - https://www.udemy.com/share/103eh43@33pF0Wo_E8awmU3oogBk1D89xtQUZRhNykDs_Xvlkv6uGesBbD_RdLQ8jGZ_8RFl/  
 
 
 
@@ -74,6 +75,23 @@ O Writer escreve essa coleção completa processada.
 
 # Readers  
 Le os dados baseado no tamanho definido no chunk, e devolve um a um para o processamento (Processor).  
+
+Leitores JDBC  
+Existem dois tipos de leitores JDBC, por Cursores e por paginação.  
+
+Leitores por Cursor, leem o registro no banco de dados e guardam em memória, quando o spring batch solicita o registro, o cursor funciona como um ponteiro, indicando qual a sequência correta de registros a serem lidos.  
+![](/img/LeitorJDBCCursor.png)  
+
+
+Leitores por paginação leem apenas uma pagina por vez, com o seu tamanho limitado, especificado na configuracao, dessa forma a cada nova pagina e feita uma nova consulta no banco de dados.  
+![](/img/LeitorJDBCPaginacaopng.png)  
+
+
+Os leitores por Curosoress são mais rápidos, porém ocupam mais memória da máquina, os leitores por Paginação por sua vez são mais lentos mais ocupam menos memória.  
+![](/img/tiposLeitoresJDBC.png)  
+
+
+Outros tipos de leitores do spring batch  
 Leitores de XML  https://docs.spring.io/spring-batch/docs/current/reference/html/index-single.html#StaxEventItemReader  
 Leitores de JSON  https://docs.spring.io/spring-batch/docs/current/reference/html/index-single.html#JsonItemReader  
 
