@@ -122,7 +122,9 @@ Permite validar um item de acordo com a regra estipulada, se ele for válido é 
 ### ScriptItemProcessor  
 Permite executar um script que recebe como argumento o item processado, executa o script e gera o item de saída do script, esse script deve ser um arquivo escrito em uma linguagem de script suportada, como javascript, ruby ou shel por exemplo.  
 ### CompositeItemProcessor  
-
+É um componente que permite encadear diversos processadores para montar uma cadeia de responsabilidades. É muito útil quando temos uma lógica de processamento complexa que precisa ser dividida em diversos processadores  
+### ClassifierItemProcessor  
+É semelhante ao CompositeItemProcessor, porem ele classifica o item recebido e chama o processador específico para aquele item.
 
 
 # Writers
