@@ -113,6 +113,18 @@ E se você quiser trabalhar com uma infraestrutura de filas assíncronas, també
 https://github.com/spring-tips/kafka-and-spring-batch/blob/master/src/main/java/com/example/bk/consumer/ConsumerApplication.java  
 
 
+# Processors  
+Os processadores tem o objetivo de processar item a item e aplicar as regras de negócio necessárias para adequar esse item a escrita.  
+
+Alguns exemplos de processadores são:  
+### ValidatingItemProcessor  
+Permite validar um item de acordo com a regra estipulada, se ele for válido é enviado sem modificações para o escritor.  
+### ScriptItemProcessor  
+Permite executar um script que recebe como argumento o item processado, executa o script e gera o item de saída do script, esse script deve ser um arquivo escrito em uma linguagem de script suportada, como javascript, ruby ou shel por exemplo.  
+### CompositeItemProcessor  
+
+
+
 # Writers
 Escreve os registros em banco de dados ou em arquivo.  
 
