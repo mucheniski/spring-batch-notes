@@ -124,7 +124,10 @@ Permite executar um script que recebe como argumento o item processado, executa 
 ### CompositeItemProcessor  
 É um componente que permite encadear diversos processadores para montar uma cadeia de responsabilidades. É muito útil quando temos uma lógica de processamento complexa que precisa ser dividida em diversos processadores  
 ### ClassifierItemProcessor  
-É semelhante ao CompositeItemProcessor, porem ele classifica o item recebido e chama o processador específico para aquele item.
+É semelhante ao CompositeItemProcessor, porem ele classifica o item recebido e chama o processador específico para aquele item.  
+
+Documentação oficial sobre ItemProcessor do Spring  
+https://docs.spring.io/spring-batch/docs/current/reference/html/readersAndWriters.html#itemProcessor
 
 
 # Writers
