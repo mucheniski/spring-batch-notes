@@ -7,6 +7,7 @@ import org.springframework.batch.item.file.transform.Range;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
 
 import com.springbatch.arquivolargurafixa.dominio.Cliente;
@@ -22,11 +23,11 @@ import com.springbatch.arquivolargurafixa.dominio.Cliente;
  */
 @Configuration
 public class ArquivoLarguraFixaReaderConfig {
+
+	FileSystemResource arquivoClientes = new FileSystemResource("files/clientes.txt");
 	
-	@StepScope
 	@Bean
-	public FlatFileItemReader<Cliente> leituraArquivoLarguraFixaReader(
-	@Value("#{jobParameters['arquivoClientes']}") Resource arquivoClientes) {
+	public FlatFileItemReader<Cliente> leituraArquivoLarguraFixaReader() {
 		return new FlatFileItemReaderBuilder<Cliente>()
                 .name("leituraArquivoLarguraFixaReader")
                 .resource(arquivoClientes)
