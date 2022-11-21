@@ -10,7 +10,7 @@ spring.batch.jdbc.initialize-schema = ALWAYS
 ################################################################
 Quando tiver mais de um datasource é preciso usar jdbcUrl ao inves de url como acima
 
-spring.datasource.jdbcUrl=jdbc:mysql://localhost:3306/jobrepository
+spring.datasource.jdbcUrl=jdbc:mysql://localhost:3306/jobrepository2
 spring.datasource.username=developer
 spring.datasource.password=developer
 
