@@ -1,10 +1,14 @@
 package com.springbatch.demonstrativoorcamentario.writer;
 
+import java.io.IOException;
+import java.io.Writer;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.springframework.batch.item.ItemWriter;
+import org.springframework.batch.item.file.FlatFileFooterCallback;
+import org.springframework.batch.item.file.FlatFileHeaderCallback;
 import org.springframework.batch.item.file.FlatFileItemWriter;
 import org.springframework.batch.item.file.builder.FlatFileItemReaderBuilder;
 import org.springframework.batch.item.file.builder.FlatFileItemWriterBuilder;
@@ -20,16 +24,37 @@ import org.springframework.core.io.FileSystemResource;
 public class DemonstrativoOrcamentarioWriterConfig {
 
 	@Bean
-	public FlatFileItemWriter<GrupoLancamento> demonstrativoOrcamentarioWriter() {
+	public FlatFileItemWriter<GrupoLancamento> demonstrativoOrcamentarioWriter(
+			DemonstrativoOrcamentarioRodape customFooter
+	) {
 
 		FileSystemResource arquivoDemonstrativoOrcamentario = new FileSystemResource("files/arquivoDemonstrativoOrcamentario.txt");
 
 		return new FlatFileItemWriterBuilder<GrupoLancamento>()
 				.name("demonstrativoOrcamentarioWriter")
 				.resource(arquivoDemonstrativoOrcamentario)
+				.headerCallback(customHeader()) // Cabeçalho
 				.lineAggregator(customLineAggregator())
+				.footerCallback(customFooter) // Rodapé
 				.build();
 
+	}
+
+	private FlatFileHeaderCallback customHeader() {
+		return new FlatFileHeaderCallback() {
+			@Override
+			public void writeHeader(Writer writer) throws IOException {
+
+				writer.append(String.format("SISTEMA INTEGRADO: XPTO \t\t\t\t DATA: %s\n", new SimpleDateFormat("dd/MM/yyyy").format(new Date())));
+				writer.append(String.format("MÓDULO: ORÇAMENTO \t\t\t\t\t HORA: %s\n", new SimpleDateFormat("HH:MM").format(new Date())));
+				writer.append(String.format("\t\t\tDEMONSTRATIVO ORCAMENTARIO\n"));
+				writer.append(String.format("----------------------------------------------------------------------------\n"));
+				writer.append(String.format("CODIGO NOME VALOR\n"));
+				writer.append(String.format("\t Data Descricao Valor\n"));
+				writer.append(String.format("----------------------------------------------------------------------------\n"));
+
+			}
+		};
 	}
 
 	private LineAggregator<GrupoLancamento> customLineAggregator() {

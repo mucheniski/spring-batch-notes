@@ -1,3 +1,11 @@
+SISTEMA INTEGRADO: XPTO 				 DATA: 21/11/2022
+MÓDULO: ORÇAMENTO 					 HORA: 16:11
+			DEMONSTRATIVO ORCAMENTARIO
+----------------------------------------------------------------------------
+CODIGO NOME VALOR
+	 Data Descricao Valor
+----------------------------------------------------------------------------
+
 [44905224] EQUIPAMENTO DE PROTEÇÃO SEGURANÇA E SOCORRO - R$ 1.000,00
 	 [01/05/2020] Alarme - R$ 1.000,00
 
@@ -22,3 +30,5 @@
 [33903302] PASSAGENS PARA O EXTERIOR - R$ 32.000,00
 	 [01/05/2020] Viagem para Las Vegas - R$ 32.000,00
 
+							  Total: R$ 63.000,00
+							  Código de Autenticação: fkyew6868fewjfhjjewf

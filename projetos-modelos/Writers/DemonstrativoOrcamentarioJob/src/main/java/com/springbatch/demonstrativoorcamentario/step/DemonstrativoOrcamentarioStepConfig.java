@@ -1,5 +1,6 @@
 package com.springbatch.demonstrativoorcamentario.step;
 
+import com.springbatch.demonstrativoorcamentario.writer.DemonstrativoOrcamentarioRodape;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.batch.item.ItemWriter;
@@ -21,11 +22,14 @@ public class DemonstrativoOrcamentarioStepConfig {
 			//MultiResourceItemReader<GrupoLancamento> demonstrativoOrcamentarioReader,
 			// Esse aqui lê do banco de dados
 			GrupoLancamentoReader demonstrativoOrcamentarioReader,
-			ItemWriter<GrupoLancamento> demonstrativoOrcamentarioWriter) {
+			ItemWriter<GrupoLancamento> demonstrativoOrcamentarioWriter,
+			DemonstrativoOrcamentarioRodape demonstrativoOrcamentarioRodape
+	) {
 		return stepBuilderFactory
 				.get("demonstrativoOrcamentarioStep")
 				.<GrupoLancamento,GrupoLancamento>chunk(100)
 				.reader(demonstrativoOrcamentarioReader)
+				.listener(demonstrativoOrcamentarioRodape)
 				.writer(demonstrativoOrcamentarioWriter)
 				.build();
 	}
