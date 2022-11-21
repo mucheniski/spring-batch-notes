@@ -132,4 +132,12 @@ https://docs.spring.io/spring-batch/docs/current/reference/html/readersAndWriter
 
 # Writers
 Escreve os registros em banco de dados ou em arquivo.  
+Escreve uma lista de itens que foram lidos e processados.  
+Algus exemplos de escritores são:  
+Arquivos (Flat e XML)  
+Diversos escritores de bancos de dados  
+Escritores de filas assincronas (JMS e KAFKA)  
+Escritores que enviam e-mail  
+Também podem existir escritóres customizados  
+
 
