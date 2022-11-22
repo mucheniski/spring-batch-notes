@@ -148,5 +148,7 @@ ArquivoDelimitadoJob - Escreve arquivo em csv
 DemonstrativoOrcamentarioJob - Arquivo com cabeçalho e rodapé  
 DemonstrativoOrcamentarioVariosArquivos - Vários arquivos com cabeçalho e rodapé  
 ContasBancariasJob - Escrita em banco de dados  
-ContasBancariasJobVariosArquivos - Escrita em banco e em arquivo com validação de clientes inválidos
+ContasBancariasJobVariosArquivos - Escrita em banco e em arquivo com validação de clientes inválidos  
+Outras implementacoes de escritores  
+https://docs.spring.io/spring-batch/docs/current/reference/html/readersAndWriters.html#databaseWriters  
 
