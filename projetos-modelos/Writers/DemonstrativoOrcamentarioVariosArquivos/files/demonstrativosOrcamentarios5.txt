@@ -1,5 +1,5 @@
 SISTEMA INTEGRADO: XPTO 				 DATA: 22/11/2022
-MÓDULO: ORÇAMENTO 					 HORA: 10:11
+MÓDULO: ORÇAMENTO 					 HORA: 16:11
 			DEMONSTRATIVO ORCAMENTARIO
 ----------------------------------------------------------------------------
 CODIGO NOME VALOR

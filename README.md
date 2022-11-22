@@ -148,3 +148,5 @@ ArquivoDelimitadoJob - Escreve arquivo em csv
 DemonstrativoOrcamentarioJob - Arquivo com cabeçalho e rodapé  
 DemonstrativoOrcamentarioVariosArquivos - Vários arquivos com cabeçalho e rodapé  
 ContasBancariasJob - Escrita em banco de dados  
+ContasBancariasJobVariosArquivos - Escrita em banco e em arquivo  
+
