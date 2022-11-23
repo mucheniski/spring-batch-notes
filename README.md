@@ -140,6 +140,9 @@ Escritores de filas assincronas (JMS e KAFKA)
 Escritores que enviam e-mail  
 Também podem existir escritóres customizados  
 
+FlatFileItemWriter - escreve em um arquivo  
+MultiResourceItemWriter - escreve em varios arquivos  
+
 Escritores de XML - https://docs.spring.io/spring-batch/docs/current/reference/html/index-single.html#StaxEventItemWriter  
 
 Escritores de JSON - https://docs.spring.io/spring-batch/docs/current/reference/html/index-single.html#code-jsonfileitemwriter-code  

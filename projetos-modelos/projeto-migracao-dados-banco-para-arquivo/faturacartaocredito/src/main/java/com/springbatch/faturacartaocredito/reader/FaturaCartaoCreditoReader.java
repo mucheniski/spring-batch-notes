@@ -1,22 +1,23 @@
 package com.springbatch.faturacartaocredito.reader;
 
+import org.springframework.batch.item.ExecutionContext;
+import org.springframework.batch.item.ItemStreamException;
+import org.springframework.batch.item.ItemStreamReader;
+
 import com.springbatch.faturacartaocredito.dominio.FaturaCartaoCredito;
 import com.springbatch.faturacartaocredito.dominio.Transacao;
-import org.springframework.batch.item.*;
 
 public class FaturaCartaoCreditoReader implements ItemStreamReader<FaturaCartaoCredito> {
-
-    private ItemStreamReader<Transacao> transacaoDelegate;
+    private ItemStreamReader<Transacao> delegate;
     private Transacao transacaoAtual;
 
     @Override
-    public FaturaCartaoCredito read() throws Exception, UnexpectedInputException, ParseException, NonTransientResourceException {
+    public FaturaCartaoCredito read() throws Exception {
         if (transacaoAtual == null)
-            transacaoAtual = transacaoDelegate.read();
+            transacaoAtual = delegate.read();
 
         FaturaCartaoCredito faturaCartaoCredito = null;
         Transacao transacao = transacaoAtual;
-
         transacaoAtual = null;
 
         if (transacao != null) {
@@ -24,40 +25,39 @@ public class FaturaCartaoCreditoReader implements ItemStreamReader<FaturaCartaoC
             faturaCartaoCredito.setCartaoCredito(transacao.getCartaoCredito());
             faturaCartaoCredito.setCliente(transacao.getCartaoCredito().getCliente());
             faturaCartaoCredito.getTransacoes().add(transacao);
+
+            while (isTransacaoRelacionada(transacao))
+                faturaCartaoCredito.getTransacoes().add(transacaoAtual);
         }
-
-        while (ehTransacaoRelacionada(transacao))
-            faturaCartaoCredito.getTransacoes().add(transacaoAtual);
-
         return faturaCartaoCredito;
-
     }
 
-    private boolean ehTransacaoRelacionada(Transacao transacao) throws Exception {
+    private boolean isTransacaoRelacionada(Transacao transacao) throws Exception {
         return peek() != null && transacao.getCartaoCredito().getNumero() == transacaoAtual.getCartaoCredito().getNumero();
     }
 
     private Transacao peek() throws Exception {
-        transacaoAtual = transacaoDelegate.read();
+        transacaoAtual = delegate.read();
         return transacaoAtual;
     }
 
-    public FaturaCartaoCreditoReader(ItemStreamReader<Transacao> transacaoDelegate) {
-        this.transacaoDelegate = transacaoDelegate;
+    public FaturaCartaoCreditoReader(ItemStreamReader<Transacao> delegate) {
+        this.delegate = delegate;
     }
 
     @Override
     public void open(ExecutionContext executionContext) throws ItemStreamException {
-        transacaoDelegate.open(executionContext);
+        delegate.open(executionContext);
     }
 
     @Override
     public void update(ExecutionContext executionContext) throws ItemStreamException {
-        transacaoDelegate.update(executionContext);
+        delegate.update(executionContext);
     }
 
     @Override
     public void close() throws ItemStreamException {
-        transacaoDelegate.close();
+        delegate.close();
     }
+
 }

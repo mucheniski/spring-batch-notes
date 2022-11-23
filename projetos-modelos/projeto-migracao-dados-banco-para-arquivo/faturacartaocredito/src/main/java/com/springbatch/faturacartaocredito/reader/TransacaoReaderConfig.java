@@ -17,52 +17,39 @@ import java.sql.SQLException;
 @Configuration
 public class TransacaoReaderConfig {
 
-    String sqlSelect =  "  select * from \n" +
-                        "  migracao_dados.transacao\n" +
-                        "  join migracao_dados.cartao_credito\n" +
-                        "  on cartao_credito.numero_cartao_credito = transacao.numero_cartao_credito\n" +
-                        "  order by transacao.numero_cartao_credito";
-
     @Bean
-    public JdbcCursorItemReader<Transacao> transacaoReader(
-        @Qualifier("aplicacaoDataSource") DataSource aplicacaoDataSource
-    ){
+    public JdbcCursorItemReader<Transacao> lerTransacoesReader(
+            @Qualifier("aplicacaoDataSource") DataSource aplicacaoDataSource) {
         return new JdbcCursorItemReaderBuilder<Transacao>()
-                .name("transacaoReader")
+                .name("lerTransacoesReader")
                 .dataSource(aplicacaoDataSource)
-                .sql(sqlSelect)
-                .rowMapper(mapeadorCamposTransacao())
+                .sql("select * from transacao join cartao_credito using (numero_cartao_credito) order by numero_cartao_credito")
+                .rowMapper(rowMapperTransacao())
                 .build();
     }
 
-    private RowMapper<Transacao> mapeadorCamposTransacao() {
-
+    private RowMapper<Transacao> rowMapperTransacao() {
         return new RowMapper<Transacao>() {
+
             @Override
             public Transacao mapRow(ResultSet rs, int rowNum) throws SQLException {
+                CartaoCredito cartaoCredito = new CartaoCredito();
+                cartaoCredito.setNumero(rs.getInt("numero_cartao_credito"));
+                Cliente cliente = new Cliente();
+                cliente.setId(rs.getInt("cliente"));
+                cartaoCredito.setCliente(cliente);
 
-                Cliente cliente = Cliente.builder()
-                                        .id(rs.getInt("cliente"))
-                                    .build();
-
-                CartaoCredito cartaoCredito = CartaoCredito.builder()
-                            .numero(rs.getInt("numero_cartao_credito"))
-                            .cliente(cliente)
-                        .build();
-
-                Transacao transacao = Transacao.builder()
-                                        .id(rs.getInt("id"))
-                                        .cartaoCredito(cartaoCredito)
-                                        .data(rs.getDate("data"))
-                                        .valor(rs.getDouble("valor"))
-                                        .descricao(rs.getString("descricao"))
-                                    .build();
+                Transacao transacao = new Transacao();
+                transacao.setId(rs.getInt("id"));
+                transacao.setCartaoCredito(cartaoCredito);
+                transacao.setData(rs.getDate("data"));
+                transacao.setValor(rs.getDouble("valor"));
+                transacao.setDescricao(rs.getString("descricao"));
 
                 return transacao;
-
             }
-        };
 
+        };
     }
 
 }

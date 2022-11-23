@@ -3,6 +3,7 @@ package com.springbatch.faturacartaocredito.step;
 import com.springbatch.faturacartaocredito.dominio.FaturaCartaoCredito;
 import com.springbatch.faturacartaocredito.dominio.Transacao;
 import com.springbatch.faturacartaocredito.reader.FaturaCartaoCreditoReader;
+import com.springbatch.faturacartaocredito.writer.TotalTransacoesFooterCallback;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.batch.item.ItemProcessor;
@@ -22,7 +23,8 @@ public class FaturaCartaoCreditoStepConfig {
     public Step faturaCartaoCreditoStep(
             ItemStreamReader<Transacao> transacaoReader,
             ItemProcessor<FaturaCartaoCredito, FaturaCartaoCredito> carregaDadosClienteProcesser,
-            ItemWriter<FaturaCartaoCredito> faturaCartaoCreditoWriter
+            ItemWriter<FaturaCartaoCredito> faturaCartaoCreditoWriter,
+            TotalTransacoesFooterCallback totalTransacoesFooterCallbackListener
     ) {
         return stepBuilderFactory
                 .get("faturaCartaoCreditoStep")
@@ -30,6 +32,7 @@ public class FaturaCartaoCreditoStepConfig {
                 .reader(new FaturaCartaoCreditoReader(transacaoReader))
                 .processor(carregaDadosClienteProcesser)
                 .writer(faturaCartaoCreditoWriter)
+                .listener(totalTransacoesFooterCallbackListener)
                 .build();
     }
 
