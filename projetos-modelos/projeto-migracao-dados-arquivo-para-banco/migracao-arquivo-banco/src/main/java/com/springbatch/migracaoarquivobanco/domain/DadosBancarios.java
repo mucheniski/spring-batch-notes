@@ -7,7 +7,7 @@ public class DadosBancarios {
 
     private Integer id;
     private Integer pessoaId;
-    private Integer agenica;
+    private Integer agencia;
     private Integer conta;
     private Integer banco;
 

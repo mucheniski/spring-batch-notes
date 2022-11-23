@@ -42,23 +42,12 @@ public class ArquivoPessoaReaderConfig {
                 return Pessoa.builder()
                         .nome(fieldSet.readString("nome"))
                         .email(fieldSet.readString("email"))
-                        .dataNascimento(convertStringToDate(fieldSet.readString("dataNascimento")))
+                        .dataNascimento(fieldSet.readString("dataNascimento"))
                         .idade(fieldSet.readInt("idade"))
                         .id(fieldSet.readInt("id"))
                         .build();
             }
         };
-    }
-
-    private static Date convertStringToDate(String dataInformada) {
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        dateFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
-        try {
-            return dateFormat.parse(dataInformada);
-        } catch (ParseException e) {
-            log.error("Erro ao converter a data: ", e.getMessage());
-            throw new RuntimeException(e);
-        }
     }
 
 }

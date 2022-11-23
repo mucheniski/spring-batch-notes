@@ -12,7 +12,7 @@ public class Pessoa {
     private Integer id;
     private String nome;
     private String email;
-    private Date dataNascimento;
+    private String dataNascimento;
     private Integer idade;
 
 }
