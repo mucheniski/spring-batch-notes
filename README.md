@@ -156,3 +156,5 @@ Para script de deleção pode ser usado o seguinte:
 JdbcBatchItemWriter apresentado na aula 59, você pode informar um script de deleção ao invés do insert. Dá uma olhada nessa aula para aprender como utilizar o JdbcBatchItemWriter.
 
 projeto migracao-dados-job le arquivos e salva no banco com steps paralelos  
+projeto fatura-cartao-credito le do banco e salva em arquivo  
+
