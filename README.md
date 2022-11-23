@@ -152,3 +152,5 @@ ContasBancariasJobVariosArquivos - Escrita em banco e em arquivo com validação
 Outras implementacoes de escritores  
 https://docs.spring.io/spring-batch/docs/current/reference/html/readersAndWriters.html#databaseWriters  
 
+Para script de deleção pode ser usado o seguinte:  
+JdbcBatchItemWriter apresentado na aula 59, você pode informar um script de deleção ao invés do insert. Dá uma olhada nessa aula para aprender como utilizar o JdbcBatchItemWriter.

@@ -2,6 +2,7 @@ package com.springbatch.migracaoarquivobanco.domain;
 
 import lombok.Builder;
 import lombok.Data;
+import org.apache.logging.log4j.util.Strings;
 
 import java.util.Date;
 
@@ -15,4 +16,7 @@ public class Pessoa {
     private String dataNascimento;
     private Integer idade;
 
+    public boolean ehValida() {
+        return !Strings.isBlank(nome) && !Strings.isBlank(email) && dataNascimento != null;
+    }
 }

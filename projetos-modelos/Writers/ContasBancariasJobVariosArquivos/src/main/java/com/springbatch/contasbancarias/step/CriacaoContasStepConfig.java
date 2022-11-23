@@ -25,6 +25,8 @@ public class CriacaoContasStepConfig {
 	* org.springframework.batch.item.WriterNotOpenException: Writer must be open before it can be written to
 	* Para evitar esse erro, preciso que sejam declarados os streams do ClassifierCompositeItemWriter pois precisam ser informados
 	* a abertura e fechamento do componente, abaixo do writer com .stream() assim o spring gerencia a abertura e o fechamento deles
+	* isso precisa ser feito sempre que utilizamos o ClassifierCompositeItemWriter porque ele não implementa a interface ItemStream 
+	* e nao fecha as operacoes automaticamente
 	* */
 	@Bean
 	public Step criacaoContasStep(
