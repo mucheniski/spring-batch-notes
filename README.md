@@ -3,7 +3,9 @@ Documentação spring batch - https://docs.spring.io/spring-batch/docs/current/r
 Overview Spring Batch - https://giuliana-bezerra.medium.com/spring-batch-para-desenvolvimento-de-jobs-1674ec5b9a20  
 Curso Udemy - https://www.udemy.com/share/103eh43@33pF0Wo_E8awmU3oogBk1D89xtQUZRhNykDs_Xvlkv6uGesBbD_RdLQ8jGZ_8RFl/  
 
+Exemplos Spring Batch - https://github.com/spring-projects/spring-batch/tree/main/spring-batch-samples  
 
+Github com exemplos - https://github.com/Dan-Dongcheol-Lee/spring-batch-example/blob/master/src/main/java/spring/batch/example/common/PersonItemProcessor.java  
 
 ## Sistema Batch  
 Um sistema que realiza um processamento de uma quantidade finita de dados sem interação ou interrupção.  

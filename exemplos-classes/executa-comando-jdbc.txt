@@ -1,0 +1,42 @@
+package com.sulamerica.etlcapitalglobal.writer;
+
+import com.sulamerica.etlcapitalglobal.config.DataSourceConfig;
+import com.sulamerica.etlcapitalglobal.domain.UsuarioOrigem;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.batch.core.annotation.BeforeWrite;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Component;
+
+import javax.sql.DataSource;
+import java.util.List;
+
+@Slf4j
+@Component
+public class LimpaBaseDestinoListener {
+
+    private JdbcTemplate jdbcTemplateObject;
+
+    @Autowired
+    DataSourceConfig dataSourceConfig;
+
+    @BeforeWrite
+    public void limpaBaseDestino(List<UsuarioOrigem> usuarios) {
+
+        for (UsuarioOrigem usuarioOrigem : usuarios) {
+            if (usuarioOrigem.getNumeroCGCCPF() != null && !usuarioOrigem.getNumeroCGCCPF().isEmpty()) {
+                log.info("Deletou o usuário: " + usuarioOrigem.getNumeroCGCCPF());
+                delete(usuarioOrigem.getNumeroCGCCPF());
+            }
+        }
+
+    }
+
+    public void delete(String numeroCGCCPF){
+        this.jdbcTemplateObject = new JdbcTemplate(dataSourceConfig.destinoDataSource());
+        String SQL = "delete from usuario_destino where num_gcg_cpf = ?";
+        jdbcTemplateObject.update(SQL, numeroCGCCPF);
+    }
+
+}
